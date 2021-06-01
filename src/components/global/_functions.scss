@@ -1,0 +1,8 @@
+@use './variables';
+
+@function spacing-unit($multiplier: 1) {
+  @return (variables.$spacing-unit * $multiplier);
+}
+@function su($args...) {
+  @return spacing-unit($args...);
+}
