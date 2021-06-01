@@ -5,18 +5,38 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+  <title>Todo</title>
 
   <link rel="stylesheet" href="./index.scss">
 </head>
 
 <body>
   <div class="page-home">
-    <header>
-      <h1>Hello World!</h1>
+    <header class="header">
+      <h1>Todos</h1>
     </header>
 
-    <main></main>
+    <main>
+      <div class="todo-card">
+        <div class="item-input">
+          <input type="text" class='input-box'  placeholder="What needs to be done?">
+        </div>
+        <div class="single-item">
+          <input class="item-checkbox" type="checkbox" id="" name="" value="">
+          <p class="item-text">Walk the dog</p>
+        </div>
+        <div class="card-footer">
+          <div class="remaining-items">
+            <p>1 Item left</p>
+          </div>
+          <div class="item-filter">
+            <a href="#">All</a>
+            <a href="#">Active</a>
+            <a href="#">Complete</a>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <footer></footer>
   </div>

@@ -2,31 +2,99 @@
 @use './components/global/mixins';
 
 .page-home {
-  background: #fff;
+  background: #ddd;
   padding: su();
 
   @include mixins.media-breakpoint-up(sm) {
-    background: #ddd;
     padding: su(2);
   }
 
   @include mixins.media-breakpoint-up(md) {
-    background: #bbb;
     padding: su(4);
   }
 
   @include mixins.media-breakpoint-up(lg) {
-    background: #999;
     padding: su(6);
   }
 
   @include mixins.media-breakpoint-up(xl) {
-    background: #777;
     padding: su(8);
   }
 
   @include mixins.media-breakpoint-up(xxl) {
-    background: #555;
     padding: su(10);
+  }
+
+  .header{
+    text-align: center;
+    padding: su(1);
+    font-size: 3rem;
+    h1{
+      font-weight: 100;
+    }
+  }
+
+  .todo-card{
+    background-color: rgb(247, 247, 247);
+    box-shadow: 5px 6px 24px -5px rgba(0,0,0,0.67);
+    -webkit-box-shadow: 5px 6px 24px -5px rgba(0,0,0,0.67);
+    -moz-box-shadow: 5px 6px 24px -5px rgba(0,0,0,0.67);
+
+    .item-input{
+      display: flex;
+      .input-box{
+        width: 100%;
+        padding: su();
+        font-size: 2rem;
+        border: none;
+        border-bottom: 1px solid rgb(197, 197, 197);
+      }
+    }
+
+    .single-item{
+      width: 100%;
+      padding: su(2);
+      display: flex;
+      border-bottom: 1px solid rgb(197, 197, 197);
+      .item-text{
+        padding-left: su();
+      }
+      .item-checkbox{
+        align-self: center;
+        border-radius: 50%;
+      }
+    }
+
+    .card-footer{
+      display: flex;
+
+      .remaining-items{
+        width: 100%;
+        padding: su();
+        color: #777;
+        @include mixins.media-breakpoint-up(sm) {
+          width: 30%;
+        }
+      }
+
+      .item-filter{
+        width: 100%;
+        text-align: center;
+        padding: su();
+
+        a{
+          color: #777;
+          text-decoration: none;
+          padding-left: su(.5);
+          padding-right: su(.5);
+        }
+        a:active {
+          border: 1px solid rgb(87, 87, 87);
+        }
+        @include mixins.media-breakpoint-up(sm) {
+          width: 40%;
+        }
+      }
+    }
   }
 }
