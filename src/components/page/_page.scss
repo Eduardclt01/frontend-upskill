@@ -1,0 +1,60 @@
+@use './components/global/functions' as *;
+@use './components/global/mixins';
+
+.page {
+  background: #ddd;
+  padding: su();
+
+  &__header {
+    font-size: 3rem;
+    padding: su(1);
+    text-align: center;
+
+    h1 {
+      font-weight: 100;
+    }
+  }
+
+  &__main {
+    margin: 0 auto;
+    max-width: 55rem;
+    padding: 0;
+  }
+
+  &__footer {
+    font-size: 1.4rem;
+    padding: su(1);
+    text-align: center;
+  }
+
+  // @include mixins.media-breakpoint-up(sm) {
+  //   &__main {
+  //     padding: su(2);
+  //   }
+  // }
+
+  // @include mixins.media-breakpoint-up(md) {
+  //   &__main {
+  //     padding: su(4);
+  //   }
+  // }
+
+  // @include mixins.media-breakpoint-up(lg) {
+  //   &__main {
+  //     padding: su(6);
+  //   }
+  // }
+
+  // @include mixins.media-breakpoint-up(xl) {
+  //   &__main {
+  //     padding: su(8);
+  //   }
+  // }
+
+  // @include mixins.media-breakpoint-up(xxl) {
+  //   &__main {
+  //     padding: su(10);
+  //   }
+  // }
+
+}

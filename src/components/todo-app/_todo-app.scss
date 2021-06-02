@@ -1,0 +1,73 @@
+@use './components/global/functions' as *;
+@use './components/global/mixins';
+@use './components/todo-app-item/todo-app-item';
+
+.todo-app {
+  background-color: rgb(247, 247, 247);
+  box-shadow: 5px 6px 24px -5px rgba(0, 0, 0, 0.67);
+  -webkit-box-shadow: 5px 6px 24px -5px rgba(0, 0, 0, 0.67);
+  -moz-box-shadow: 5px 6px 24px -5px rgba(0, 0, 0, 0.67);
+
+  .item-input {
+    display: flex;
+    .input-box {
+      width: 100%;
+      padding: su();
+      font-size: 2rem;
+      border: none;
+      border-bottom: 1px solid rgb(197, 197, 197);
+    }
+  }
+
+  &__items {
+    > * + * {
+      border-top: 1px solid rgb(197, 197, 197);
+    }
+  }
+
+  &__footer {
+    border-top: 1px solid rgb(197, 197, 197);
+    display: flex;
+
+    .remaining-items {
+      width: 100%;
+      padding: su();
+      color: #777;
+      @include mixins.media-breakpoint-up(sm) {
+        width: 30%;
+      }
+    }
+
+    .item-filter {
+      width: 100%;
+      text-align: center;
+      padding: su();
+
+      a {
+        color: #777;
+        text-decoration: none;
+        padding-left: su(0.5);
+        padding-right: su(0.5);
+      }
+      a:active {
+        border: 1px solid rgb(87, 87, 87);
+      }
+      @include mixins.media-breakpoint-up(sm) {
+        width: 40%;
+      }
+    }
+
+    .clear-list {
+      width: 100%;
+      padding: su();
+      text-align: right;
+      a {
+        color: #777;
+        text-decoration: none;
+      }
+      @include mixins.media-breakpoint-up(sm) {
+        width: 30%;
+      }
+    }
+  }
+}

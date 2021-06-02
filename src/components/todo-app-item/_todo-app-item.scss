@@ -1,0 +1,59 @@
+@use './components/global/functions' as *;
+@use './components/global/mixins';
+
+.todo-app-item {
+  $this: &;
+  display: flex;
+  padding: su(2) 0;
+  width: 100%;
+
+  > * {
+    margin-left: su(1);
+  }
+
+  &__toggle {
+    appearance: none;
+    border: 1px solid #C8C8C8;
+    border-radius: 50%;
+    cursor: pointer;
+    height: su(2);
+    width: su(2);
+
+    &:checked {
+      background: url('/components/todo-app-item/assets/check-line.svg') no-repeat center center;
+      background-size: contain;
+      border-color: #090;
+    }
+  }
+
+  &__title {
+    flex: 1 0 auto;
+    font-size: 2.4rem;
+    padding-left: su();
+  }
+
+  &__delete-button {
+    @include mixins.clear-default-button-styling;
+    background: url('/components/todo-app-item/assets/close-line.svg') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    opacity: 0;
+    width: su(4);
+  }
+
+  &:hover {
+    #{$this} {
+      &__delete-button {
+        opacity: 1;
+      }
+    }
+  }
+
+  &--completed {
+    #{$this} {
+      &__title {
+        text-decoration: line-through;
+      }
+    }
+  }
+}
