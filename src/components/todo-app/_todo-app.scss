@@ -28,13 +28,16 @@
   &__footer {
     border-top: 1px solid rgb(197, 197, 197);
     display: flex;
+    flex-wrap: wrap;
 
     .remaining-items {
       width: 100%;
       padding: su();
       color: #777;
+      order: 2;
       @include mixins.media-breakpoint-up(sm) {
-        width: 30%;
+        width: 25%;
+        order: 1;
       }
     }
 
@@ -42,6 +45,7 @@
       width: 100%;
       text-align: center;
       padding: su();
+      order: 1;
 
       a {
         color: #777;
@@ -53,20 +57,22 @@
         border: 1px solid rgb(87, 87, 87);
       }
       @include mixins.media-breakpoint-up(sm) {
-        width: 40%;
+        width: 50%;
+        order: 2;
       }
     }
 
     .clear-list {
       width: 100%;
       padding: su();
-      text-align: right;
+      order: 3;
       a {
         color: #777;
         text-decoration: none;
       }
       @include mixins.media-breakpoint-up(sm) {
-        width: 30%;
+        width: 25%;
+        text-align: right;
       }
     }
   }
