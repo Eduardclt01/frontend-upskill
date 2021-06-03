@@ -1,6 +1,6 @@
 @use './components/global/functions' as *;
 @use './components/global/mixins';
-@use './components/todo-app-item/todo-app-item';
+@use './todo-app-item';
 
 .todo-app {
   background-color: rgb(247, 247, 247);

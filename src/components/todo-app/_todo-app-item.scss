@@ -20,7 +20,7 @@
     width: su(2);
 
     &:checked {
-      background: url('/components/todo-app-item/assets/check-line.svg') no-repeat center center;
+      background: url('/components/todo-app/assets/check-line.svg') no-repeat center center;
       background-size: contain;
       border-color: #090;
     }
@@ -34,7 +34,7 @@
 
   &__delete-button {
     @include mixins.clear-default-button-styling;
-    background: url('/components/todo-app-item/assets/close-line.svg') no-repeat center center;
+    background: url('/components/todo-app/assets/close-line.svg') no-repeat center center;
     background-size: contain;
     cursor: pointer;
     opacity: 0;
