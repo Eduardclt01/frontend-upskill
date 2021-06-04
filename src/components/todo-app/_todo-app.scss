@@ -10,6 +10,7 @@
 
   .item-input {
     display: flex;
+
     .input-box {
       width: 100%;
       padding: su();
@@ -35,6 +36,7 @@
       padding: su();
       color: #777;
       order: 2;
+
       @include mixins.media-breakpoint-up(sm) {
         width: 25%;
         order: 1;
@@ -52,10 +54,12 @@
         text-decoration: none;
         padding-left: su(0.5);
         padding-right: su(0.5);
+
+        &:active {
+          border: 1px solid rgb(87, 87, 87);
+        }
       }
-      a:active {
-        border: 1px solid rgb(87, 87, 87);
-      }
+
       @include mixins.media-breakpoint-up(sm) {
         width: 50%;
         order: 2;
@@ -66,10 +70,12 @@
       width: 100%;
       padding: su();
       order: 3;
+
       a {
         color: #777;
         text-decoration: none;
       }
+
       @include mixins.media-breakpoint-up(sm) {
         width: 25%;
         text-align: right;
