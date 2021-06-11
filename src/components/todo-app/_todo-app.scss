@@ -43,19 +43,19 @@
       }
     }
 
-    .item-filter {
+    .filters {
       width: 100%;
       text-align: center;
       padding: su();
       order: 1;
 
-      a {
+      &__item {
         color: #777;
         text-decoration: none;
         padding-left: su(0.5);
         padding-right: su(0.5);
 
-        &:active {
+        &:active, &--selected {
           border: 1px solid rgb(87, 87, 87);
         }
       }
