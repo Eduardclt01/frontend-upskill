@@ -56,16 +56,12 @@ describe('todo mvc app', () => {
   });
 
   it('should allow filtering the todos based on their state', () => {
-    cy.get('.filters').within(function () {
-      cy.contains('All').should('have.class', 'filters__item--selected')
-      cy.contains('Active')
-      .click()
-      .should('have.class', 'filters__item--selected')
-
-      cy.contains('Completed')
-      .click()
-      .should('have.class', 'filters__item--selected')
-    })
+    cy.get('.todoapp-filters').contains('All').click();
+    cy.get('.todoapp').should('have.attr', 'data-selected-filter-name').and('equal', 'all');
+    cy.get('.todoapp-filters').contains('Active').click();
+    cy.get('.todoapp').should('have.attr', 'data-selected-filter-name').and('equal', 'active');
+    cy.get('.todoapp-filters').contains('Completed').click();
+    cy.get('.todoapp').should('have.attr', 'data-selected-filter-name').and('equal', 'complete');
   });
 
 })
