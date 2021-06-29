@@ -64,4 +64,43 @@ describe('todo mvc app', () => {
     cy.get('.todoapp').should('have.attr', 'data-selected-filter-name').and('equal', 'complete');
   });
 
+  it('should update the items remaining counter correctly', () => {
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
+
+    cy.get('input[placeholder="What needs to be done?"]').type('test 1{enter}');
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '1 item left');
+
+    cy.get('input[placeholder="What needs to be done?"]').type('test 2{enter}');
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '2 items left');
+
+    cy.get('input[placeholder="What needs to be done?"]').type('test 3{enter}');
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '3 items left');
+
+    cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '2 items left');
+
+    cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '1 item left');
+
+    cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
+
+    cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '3 items left');
+
+    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click();
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
+
+    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click();
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '3 items left');
+
+    cy.get('input[placeholder="What needs to be done?"]').type('test 4{enter}');
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '4 items left');
+
+    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click();
+    cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
+  });
+
 })
