@@ -9,7 +9,7 @@
     "test": "npm run test:e2e",
     "test:watch": "npm run test:e2e:watch",
     "test:e2e": "cypress run --headless",
-    "test:e2e:watch": "npx nodemon -e html,js,jsx,ts,tsx,css,scss --exec 'npm run test:e2e'"
+    "test:e2e:watch": "nodemon -e html,js,jsx,ts,tsx,css,scss --exec 'npm run test:e2e'"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,6 @@
   },
   "homepage": "https://github.com/Eduardclt01/frontend-upskill#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-react": "^7.14.5",
     "cypress": "^7.4.0",
     "nodemon": "^2.0.7",
     "parcel-bundler": "^1.12.5",
