@@ -121,4 +121,38 @@ describe('todo mvc app', () => {
     cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
   });
 
+  it('should allow deleting all completed items', () => {
+    cy.get('input[placeholder="What needs to be done?"]').type('test 1{enter}');
+    cy.get('input[placeholder="What needs to be done?"]').type('test 2{enter}');
+    cy.get('input[placeholder="What needs to be done?"]').type('test 3{enter}');
+
+    cy.get('.todoapp-list').children().should('have.length', 3);
+
+    cy.get('.todoapp-list > *').eq(0).find('input').click();
+
+    cy.get('.todoapp-footer').contains('Clear completed').click();
+    cy.on('window:confirm', (message) => {
+      expect(message).to.equal('Are you sure you want to delete these items, this cannot be undone');
+      return true;
+    });
+    cy.get('.todoapp-list').children().should('have.length', 2);
+  });
+
+  it('should allow the user to cancel deleting all completed items', () => {
+    cy.get('input[placeholder="What needs to be done?"]').type('test 1{enter}');
+    cy.get('input[placeholder="What needs to be done?"]').type('test 2{enter}');
+    cy.get('input[placeholder="What needs to be done?"]').type('test 3{enter}');
+
+    cy.get('.todoapp-list').children().should('have.length', 3);
+
+    cy.get('.todoapp-list > *').eq(0).find('input').click();
+
+    cy.get('.todoapp-footer').contains('Clear completed').click();
+    cy.on('window:confirm', () => {
+      return false;
+    });
+
+    cy.get('.todoapp-list').children().should('have.length', 3);
+  });
+
 })
