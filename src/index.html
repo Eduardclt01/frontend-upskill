@@ -1,63 +1,22 @@
-<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="TodoMVC Styling" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo</title>
+    <title>TodoMVC</title>
+    <link rel="stylesheet" href="./components/common.css" ></link>
+    <link rel="stylesheet" href="./components/common-dark-mode.css" ></link>
+    <link rel="stylesheet" href="./components/common-sunset-mode.css" ></link>
 
-  <link rel="stylesheet" href="./index.scss">
-  <script type="text/javascript" src="./index.js" defer></script>
-</head>
+  </head>
 
-<body>
-  <div class="page">
-    <header class="page__header">
-      <h1>todos</h1>
-    </header>
-
-    <main class="page__main">
-
-      <div class="todo-app">
-        <header class="todo-app__header">
-          <div class="item-input">
-            <input type="text" class='input-box' placeholder="What needs to be done?">
-          </div>
-        </header>
-
-        <template name="todo-app-item">
-          <li class="todo-app-item">
-            <input aria-label="Toggle" class="todo-app-item__toggle" type="checkbox" />
-            <label aria-label="Title" class="todo-app-item__title"></label>
-            <button aria-label="Delete" class="todo-app-item__delete-button"></button>
-          </li>
-        </template>
-
-        <ul class="todo-app__items">
-        </ul>
-
-        <footer aria-label="Footer" class="todo-app__footer">
-          <div class="remaining-items">
-            <p>1 Item left</p>
-          </div>
-          <div class="filters">
-            <a href="#" class="filters__item filters__item--selected">All</a>
-            <a href="#" class="filters__item">Active</a>
-            <a href="#" class="filters__item">Complete</a>
-          </div>
-          <div class="clear-list">
-            <a href="#">Clear all</a>
-          </div>
-        </footer>
-      </div>
-
-    </main>
-
-    <footer class="page__footer">
-      main page footer content goes here
-    </footer>
-  </div>
-</body>
-
+  <body>
+    <!--     <div id="root"></div> -->
+    <script crossorigin type="text/javascript" src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin type="text/javascript" src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script crossorigin type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel" src="./react-simple.js"></script>
+  </body>
 </html>

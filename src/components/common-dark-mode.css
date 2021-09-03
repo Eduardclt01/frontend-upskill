@@ -1,0 +1,55 @@
+.dark{
+  background-color: #272121;
+  color: #fff
+}
+
+.dark .todoapp--card {
+  box-shadow: 5px 0 15px #000;
+}
+
+.dark .todoapp-header__search-form {
+  border-color: #2f2f2f;
+}
+
+.dark .todoapp-main {
+  background-color: #1a1533;
+}
+
+.dark .todoapp-footer {
+  background-color: #1a1533;
+  border-color: #2f2f2f;
+
+  box-shadow: 0px 10px 6px -12px rgba(0, 0, 0, 0.5), 0 14px 0.5px -5px #1a1533, 0 14px 4px -5px rgba(0, 0, 0, 0.5), 0 26px 0.5px -10px #1a1533, 0 26px 10px -8px rgba(0, 0, 0, 0.25);
+}
+
+.dark .todo-list-item {
+  border-color: #2f2f2f;
+  color: #fff;
+}
+
+.dark .todoapp-footer__remaining-count {
+  color: #A0A0A0;
+}
+
+.dark .todoapp-clear-completed-items-button {
+  background-color: #1a1533;
+  color: #fff;
+}
+
+.dark .todoapp-filters__item.todoapp-filters__item a {
+  color: #fff;
+}
+
+.dark .todoapp-filters__item.todoapp-filters__item--selected a{
+  border-color: #fff;
+}
+
+.dark input {
+  background-color: #333340;
+  border-color: #2f2f2f;
+  color: #fff
+}
+
+.dark .todo-list-item__delete {
+  color: #A0A0A0;
+}

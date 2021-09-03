@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "parcel src/index.html --port 1234",
     "build": "parcel build src/index.html",
+    "start": "nodemon --exec babel-node src/index.js",
     "test": "npm run test:e2e",
     "test:watch": "npm run test:e2e:watch",
     "test:e2e": "cypress run --headless",
@@ -23,6 +24,10 @@
   },
   "homepage": "https://github.com/Eduardclt01/frontend-upskill#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
     "cypress": "^7.4.0",
     "nodemon": "^2.0.7",
     "parcel-bundler": "^1.12.5",
