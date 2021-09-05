@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 function App() {
   // ---------- State ----------
   var [appState, updateAppState] = React.useState({
-    todos: [{ id: "12345a", title: "Walk the dog", completed: false }, { id: "12345b", title: "Drink water", completed: true }, { id: "12345c", title: "Buy water", completed: false }],
+    // todos: [{ id: "12345a", title: "Walk the dog", completed: false }, { id: "12345b", title: "Drink water", completed: true }, { id: "12345c", title: "Buy water", completed: false }],
+    todos: [],
     selectedFilterName: "",
     searchString: "",
     colorMode: 'dark',

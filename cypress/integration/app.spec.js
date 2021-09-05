@@ -32,17 +32,17 @@ describe('todo mvc app', () => {
     cy.get('input[placeholder="What needs to be done?"]').type('test 3{enter}');
 
     cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click();
-    cy.get('.todoapp-list > *').eq(0).should('have.attr', 'data-status').and('equal', 'completed');
+    cy.get('.todoapp-list > *').eq(0).should('have.attr', 'data-completed').and('equal', 'true');
     cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click();
-    cy.get('.todoapp-list > *').eq(0).should('have.attr', 'data-status').and('equal', 'not-completed');
+    cy.get('.todoapp-list > *').eq(0).should('have.attr', 'data-completed').and('equal', 'false');
     cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click();
-    cy.get('.todoapp-list > *').eq(1).should('have.attr', 'data-status').and('equal', 'completed');
+    cy.get('.todoapp-list > *').eq(1).should('have.attr', 'data-completed').and('equal', 'true');
     cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click();
-    cy.get('.todoapp-list > *').eq(2).should('have.attr', 'data-status').and('equal', 'completed');
+    cy.get('.todoapp-list > *').eq(2).should('have.attr', 'data-completed').and('equal', 'true');
     cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click();
     cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click();
-    cy.get('.todoapp-list > *').eq(1).should('have.attr', 'data-status').and('equal', 'not-completed');
-    cy.get('.todoapp-list > *').eq(2).should('have.attr', 'data-status').and('equal', 'not-completed');
+    cy.get('.todoapp-list > *').eq(1).should('have.attr', 'data-completed').and('equal', 'false');
+    cy.get('.todoapp-list > *').eq(2).should('have.attr', 'data-completed').and('equal', 'false');
   });
 
   it('should allow deleting todos', () => {
@@ -56,12 +56,20 @@ describe('todo mvc app', () => {
   });
 
   it('should allow filtering the todos based on their state', () => {
+    cy.get('input[placeholder="What needs to be done?"]').type('test 1{enter}');
+    cy.get('input[placeholder="What needs to be done?"]').type('test 2{enter}');
+    cy.get('input[placeholder="What needs to be done?"]').type('test 3{enter}');
+
+    cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click();
+
     cy.get('.todoapp-filters').contains('All').click();
-    cy.get('.todoapp').should('have.attr', 'data-selected-filter-name').and('equal', 'all');
+    cy.get('.todoapp-list').children().should('have.length', 3);
+
     cy.get('.todoapp-filters').contains('Active').click();
-    cy.get('.todoapp').should('have.attr', 'data-selected-filter-name').and('equal', 'active');
+    cy.get('.todoapp-list').children().should('have.length', 2);
+
     cy.get('.todoapp-filters').contains('Completed').click();
-    cy.get('.todoapp').should('have.attr', 'data-selected-filter-name').and('equal', 'complete');
+    cy.get('.todoapp-list').children().should('have.length', 1);
   });
 
   it('should update the items remaining counter correctly', () => {
@@ -76,30 +84,30 @@ describe('todo mvc app', () => {
     cy.get('input[placeholder="What needs to be done?"]').type('test 3{enter}');
     cy.get('.todoapp-footer__remaining-count').should('have.text', '3 items left');
 
-    cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click({ force: true });
     cy.get('.todoapp-footer__remaining-count').should('have.text', '2 items left');
 
-    cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click({ force: true });
     cy.get('.todoapp-footer__remaining-count').should('have.text', '1 item left');
 
-    cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click({ force: true });
     cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
 
-    cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click();
-    cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click();
-    cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click();
+    cy.get('.todoapp-list > *').eq(0).find('[aria-label="Toggle"]').click({ force: true });
+    cy.get('.todoapp-list > *').eq(1).find('[aria-label="Toggle"]').click({ force: true });
+    cy.get('.todoapp-list > *').eq(2).find('[aria-label="Toggle"]').click({ force: true });
     cy.get('.todoapp-footer__remaining-count').should('have.text', '3 items left');
 
-    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click();
+    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click({ force: true });
     cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
 
-    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click();
+    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click({ force: true });
     cy.get('.todoapp-footer__remaining-count').should('have.text', '3 items left');
 
     cy.get('input[placeholder="What needs to be done?"]').type('test 4{enter}');
     cy.get('.todoapp-footer__remaining-count').should('have.text', '4 items left');
 
-    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click();
+    cy.get('.todoapp').find('[aria-label="Mark all as complete"]').click({ force: true });
     cy.get('.todoapp-footer__remaining-count').should('have.text', '0 items left');
   });
 
