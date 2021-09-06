@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodoList from './components/TodoList'
-import FooterFilterItems from './components/FooterFilterItems'
-import RemainingTodosCounter from './components/RemainingTodosCounter'
 
 function App() {
   // ---------- State ----------
@@ -59,6 +56,15 @@ function App() {
     });
   }
 
+  function updateSelectedFilter(filterName) {
+    updateAppState(function(state) {
+      return {
+        ...state,
+        selectedFilterName: filterName
+      };
+    });
+  }
+
   function deleteAllCompletedTodos() {
     updateAppState(function(state) {
       return {
@@ -72,6 +78,31 @@ function App() {
     });
   }
 
+  function deleteTodo(todoId) {
+    updateAppState(function(state) {
+      return {
+        ...state,
+        todos: state.todos.filter(todo => {
+          if (todo.id !== todoId) {
+            return todo;
+          }
+        })
+      };
+    });
+  }
+
+  function updateTodoPosition(fromIndex, toIndex) {
+    updateAppState(function(state) {
+      const reorderedTodos = state.todos.slice(0);
+      const objectToMove = reorderedTodos.splice(fromIndex, 1)[0];
+      reorderedTodos.splice(toIndex, 0, objectToMove);
+
+      return {
+        ...state,
+        todos: reorderedTodos
+      };
+    });
+  }
 
   function getUserConfirmation(operation, message) {
     if (confirmOperation(message)) {
@@ -84,17 +115,23 @@ function App() {
   }
 
   // ---------- Event Handlers ----------
+  function onTodoItemCheckboxChange(e) {
+    markTodoAs(e.target.parentNode.getAttribute("data-item-id"), e.target.checked);
+  }
 
   function isValidTodoString(value) {
     return value.trim() !== "" ? true : false;
   }
 
-  // ------ dont think we use this ------
-  // function onNewTodoInputFieldKeyUp(event) {
-  //   if (event.which === 13) {
-  //     addNewTodo(event.target.value);
-  //   }
-  // }
+  function onNewTodoInputFieldKeyUp(event) {
+    if (event.which === 13) {
+      addNewTodo(event.target.value);
+    }
+  }
+
+  function onFilterButtonClick(event) {
+    updateSelectedFilter(event.target.getAttribute("data-filter"));
+  }
 
   function onToggleAllItemsCompletedStateButtonClick(event) {
     var eventStatus = event.target.getAttribute("data-toggled");
@@ -104,6 +141,14 @@ function App() {
 
   function onDeleteAllCompletedTodosButtonClick(event) {
     getUserConfirmation(deleteAllCompletedTodos, "Are you sure you want to delete this item, this cannot be undone");
+  }
+
+  function onDeleteTodoClick(todoId) {
+    getUserConfirmation(deleteTodo.bind(null, todoId), "Are you sure you want to delete this item, this cannot be undone");
+  }
+
+  function getNumberOfActiveTodos() {
+    return appState.todos.filter(todo => todo.completed === false).length;
   }
 
   function clearInput(element) {
@@ -129,6 +174,19 @@ function App() {
     });
   }
 
+
+  function RemainingTodosCounter(props) {
+    var count = getNumberOfActiveTodos();
+    var className = "todoapp-footer__remaining-count";
+
+    return (
+      <span className={className}>
+        {count}
+        {count > 1 || count === 0 ? " items left" : " item left"}
+      </span>
+    );
+  }
+
   function getFilteredTodoList() {
     return appState.todos.filter(function(todo) {
       if (appState.searchString.length > 0 && todo.title.toLowerCase().includes(appState.searchString.toLowerCase())){
@@ -145,6 +203,105 @@ function App() {
         }
       }
     });
+  }
+
+  function SingleFilterItem(props) {
+    var baseClassName = "todoapp-filters__item";
+    var selectedFilterName = appState.selectedFilterName;
+
+    var filterName = props.filterName;
+    var label = props.label;
+
+    var classNameModifiers = [];
+    if (selectedFilterName === filterName) {
+      classNameModifiers.push("selected");
+    }
+    var className = baseClassName + " " + classNameModifiers.map(classNameModifier => baseClassName + "--" + classNameModifier).join(" ");
+
+    return (
+      <li className={className}>
+        <a className="todoapp-filters__item--link" data-filter={filterName} onClick={onFilterButtonClick.bind()} href="#/">
+          {label}
+        </a>
+      </li>
+    );
+  }
+
+  function FooterFilterItems(props) {
+    return (
+      <section className="todoapp-footer-filters">
+        <ul className="todoapp-filters">
+          <SingleFilterItem label="All" filterName=""></SingleFilterItem>
+
+          <SingleFilterItem label="Active" filterName="active"></SingleFilterItem>
+
+          <SingleFilterItem label="Completed" filterName="completed"></SingleFilterItem>
+        </ul>
+      </section>
+    );
+  }
+
+  // --- Drag start
+  let draggingItemIndex = null;
+  let dragOverItemIndex = null;
+
+  function onTodoListItemDragStart(e, position) {
+    e.target.style.cursor = "grab";
+    draggingItemIndex = position;
+  }
+
+  function onTodoListItemDragEnter(e, position) {
+    dragOverItemIndex = position;
+
+    e.target.style.cursor = "grabbing";
+    var item = document.getElementsByClassName('todoapp-list')[0].children[dragOverItemIndex]
+    item.classList.add("border-bottom");
+  }
+
+  function onTodoListItemDragEnd(e) {
+    e.target.style.cursor = "default";
+    updateTodoPosition(draggingItemIndex, dragOverItemIndex);
+    draggingItemIndex = null;
+    dragOverItemIndex = null;
+  }
+
+  function onTodoListItemDragLeave(e, position) {
+    var item = document.getElementsByClassName('todoapp-list')[0].children[position]
+    item.classList.remove("border-bottom");
+  }
+  // --- Drag end
+
+  function TodoListItem(props) {
+    return (
+      <li
+        className="todo-list-item"
+        onDragEnter={e => onTodoListItemDragEnter(e, props.index)}
+        onDragEnd={onTodoListItemDragEnd}
+        onDragStart={e => onTodoListItemDragStart(e, props.index)}
+        onDragLeave={e => onTodoListItemDragLeave(e, props.index)}
+        draggable
+        data-completed={props.todo.completed}
+        data-item-id={props.todo.id}
+      >
+        <input className="todo-list-item__toggle" onChange={onTodoItemCheckboxChange} checked={props.todo.completed} type="checkbox" aria-label="Toggle" />
+        <label className="todo-list-item__title" aria-label="Title">
+          {props.todo.title}
+        </label>
+        <button className="todo-list-item__delete" aria-label="Delete" onClick={onDeleteTodoClick.bind(null, props.todo.id)}>
+          ✕
+        </button>
+      </li>
+    );
+  }
+
+  function TodoList(props) {
+    return (
+      <ul className="todoapp-list">
+        {props.todoItems.map((todo, index) => (
+          <TodoListItem todo={todo} key={todo.id} index={index}></TodoListItem>
+        ))}
+      </ul>
+    );
   }
 
   function onDarkModeInput(event) {
