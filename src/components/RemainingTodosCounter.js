@@ -1,10 +1,7 @@
+import React from 'react';
+
 function RemainingTodosCounter(props) {
-  function getNumberOfActiveTodos() {
-    return appState.todos.filter(todo => todo.completed === false).length;
-  }
-
-
-  var count = getNumberOfActiveTodos();
+  var count = props.remainingCount
   var className = "todoapp-footer__remaining-count";
 
   return (

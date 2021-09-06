@@ -83,6 +83,10 @@ function App() {
     return window.confirm(message);
   }
 
+  function getNumberOfActiveTodos() {
+    return appState.todos.filter(todo => todo.completed === false).length;
+  }
+
   // ---------- Event Handlers ----------
 
   function isValidTodoString(value) {
@@ -192,9 +196,9 @@ function App() {
         </section>
 
         <footer className="todoapp-footer">
-          <RemainingTodosCounter></RemainingTodosCounter>
+          <RemainingTodosCounter remainingCount={getNumberOfActiveTodos()} ></RemainingTodosCounter>
 
-          <FooterFilterItems></FooterFilterItems>
+          <FooterFilterItems selectedFilterName={appState.selectedFilterName}></FooterFilterItems>
 
           <button className="todoapp-clear-completed-items-button" onClick={onDeleteAllCompletedTodosButtonClick}>
             Clear completed

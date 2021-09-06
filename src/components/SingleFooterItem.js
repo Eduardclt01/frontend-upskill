@@ -1,20 +1,21 @@
+import React from 'react';
+
+function onFilterButtonClick(event) {
+  updateSelectedFilter(event.target.getAttribute("data-filter"));
+}
+
+function updateSelectedFilter(filterName) {
+  updateAppState(function(state) {
+    return {
+      ...state,
+      selectedFilterName: filterName
+    };
+  });
+}
+
 function SingleFilterItem(props) {
-
-  function onFilterButtonClick(event) {
-    updateSelectedFilter(event.target.getAttribute("data-filter"));
-  }
-
-  function updateSelectedFilter(filterName) {
-    updateAppState(function(state) {
-      return {
-        ...state,
-        selectedFilterName: filterName
-      };
-    });
-  }
-
   var baseClassName = "todoapp-filters__item";
-  var selectedFilterName = appState.selectedFilterName;
+  var selectedFilterName = props.selectedFilterName;
 
   var filterName = props.filterName;
   var label = props.label;
