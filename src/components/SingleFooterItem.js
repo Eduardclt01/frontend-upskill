@@ -1,19 +1,13 @@
 import React from 'react';
-
-function onFilterButtonClick(event) {
-  updateSelectedFilter(event.target.getAttribute("data-filter"));
-}
-
-function updateSelectedFilter(filterName) {
-  updateAppState(function(state) {
-    return {
-      ...state,
-      selectedFilterName: filterName
-    };
-  });
-}
+import { AppContext } from "./../AppContext.js";
 
 function SingleFilterItem(props) {
+  const appContext = React.useContext(AppContext);
+
+  function onFilterButtonClick(event) {
+    appContext.actions.updateSelectedFilter(event.target.getAttribute("data-filter"));
+  }
+
   var baseClassName = "todoapp-filters__item";
   var selectedFilterName = props.selectedFilterName;
 
